@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Levels/Test/Materials/M_Dark.tres" type="Material" id=1]
+[ext_resource path="res://Characters/AI - Soldier/Carl.gd" type="Script" id=2]
+
+[sub_resource type="CapsuleMesh" id=1]
+
+[sub_resource type="CubeMesh" id=3]
+
+[sub_resource type="CapsuleShape" id=2]
+
+[sub_resource type="SphereShape" id=4]
+radius = 5.05446
+
+[node name="Carl" type="KinematicBody" groups=["bot"]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0261955, -0.0236754, 0.00141096 )
+script = ExtResource( 2 )
+
+[node name="Body" type="CSGMesh" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+mesh = SubResource( 1 )
+
+[node name="Head" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0 )
+
+[node name="Head_Placeholder" type="CSGMesh" parent="Head"]
+transform = Transform( 0.383, 0, 0, 0, 0.368, 0, 0, 0, 0.25, 0, 0, -0.75 )
+mesh = SubResource( 3 )
+material = ExtResource( 1 )
+
+[node name="Field_of_View" type="Area" parent="Head"]
+
+[node name="CollisionPolygon" type="CollisionPolygon" parent="Head/Field_of_View"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
+polygon = PoolVector2Array( 0, 0, -15, 20, 0, 25, 15, 20 )
+
+[node name="Line_of_Sight" type="RayCast" parent="Head"]
+
+[node name="Hitbox" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 2 )
+
+[node name="Proximity" type="Area" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="Proximity"]
+shape = SubResource( 4 )
+
+[connection signal="body_entered" from="Head/Field_of_View" to="." method="_on_Field_of_View_body_entered"]
+[connection signal="body_exited" from="Head/Field_of_View" to="." method="_on_Field_of_View_body_exited"]
+[connection signal="body_entered" from="Proximity" to="." method="_on_Proximity_body_entered"]
+[connection signal="body_exited" from="Proximity" to="." method="_on_Proximity_body_exited"]
