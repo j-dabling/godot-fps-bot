@@ -5,7 +5,7 @@ Carl is a (at this point *very* simple) bot made for 3D / FPS games made in Godo
 To use it in your own project, simply import the folder `Carl` into your project, then drag `Carl.tscn` into your level.
 `Carl.gd` has a boolean labeled `debug`, which is set by default to false. Change this to true to get console messages while the game is running.
 
-Video Demo coming soon!
+[A brief demonstration](https://www.youtube.com/watch?v=AAnUTsFay1M)
 
 # Development Environment
 
